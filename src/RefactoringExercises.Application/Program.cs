@@ -2,15 +2,12 @@
 
 using RefactoringExercises.EmployeeManagement;
 
-string employeeName = "John Doe";
-double baseSalary = 5000;
-int workingHours = 160;
-string department = "IT";
+Employee employee = new("John Doe", 5000, 160, "IT");
 
 var processor = new EmployeeProcessor();
-var totalSalary = processor.Process(baseSalary, department);
+var totalSalary = processor.Process(employee);
 
-Console.WriteLine($"Employee: {employeeName}");
-Console.WriteLine($"Department: {department}");
-Console.WriteLine($"Base Salary: ${baseSalary}");
+Console.WriteLine($"Employee: {employee.Name}");
+Console.WriteLine($"Department: {employee.Department}");
+Console.WriteLine($"Base Salary: ${employee.BaseSalary}");
 Console.WriteLine($"Total Salary: ${totalSalary}");

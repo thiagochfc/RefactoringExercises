@@ -2,23 +2,23 @@ namespace RefactoringExercises.EmployeeManagement;
 
 public class EmployeeProcessor
 {
-    public double Process(double baseSalary, string department)
+    public double Process(Employee employee)
     {
         // Calculate bonus
         double bonus = 0;
-        if (department == "IT")
+        if (employee.Department == "IT")
         {
-            bonus = baseSalary * 0.15;
+            bonus = employee.BaseSalary * 0.15;
         }
-        else if (department == "Sales")
+        else if (employee.Department == "Sales")
         {
-            bonus = baseSalary * 0.20;
+            bonus = employee.BaseSalary * 0.20;
         }
         else
         {
-            bonus = baseSalary * 0.10;
+            bonus = employee.BaseSalary * 0.10;
         }
 
-        return baseSalary + bonus;
+        return employee.BaseSalary + bonus;
     }
 }
