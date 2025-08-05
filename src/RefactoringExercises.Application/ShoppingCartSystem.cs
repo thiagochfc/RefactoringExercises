@@ -7,28 +7,29 @@ public static class ShoppingCartSystem
     public static void Execute()
     {
         // Product data
-        List<string> productNames = ["Laptop", "Mouse", "Keyboard"];
-        List<double> productPrices = [999.99, 29.99, 79.99];
-        List<int> quantities = [1, 2, 1];
-        List<string> categories = ["Electronics", "Electronics", "Electronics"];
-        
+        List<OrderItem> items =
+        [
+            new(new Product("Laptop", 999.99m, new Category("Electronics")), 1),
+            new(new Product("Mouse", 29.99m, new Category("Electronics")), 2),
+            new(new Product("Keyboard", 79.99m, new Category("Electronics")), 1)
+        ];
+
         // Customer data
-        string customerName = "Alice Smith";
-        string customerType = "Premium"; // Regular, Premium, VIP
-        string shippingAddress = "123 Main St, City, State";
+        Customer customer = new("Alice Smith", "Premium", "123 Main St, City, State");
 
         ShoppingProcessor processor = new();
-        (double subtotal, double discount, double tax, double shipping, double total) = 
-            processor.ProcessOrder(productNames, productPrices, quantities, categories, customerName, customerType, shippingAddress);
-        
+        (decimal subtotal, decimal discount, decimal tax, decimal shipping, decimal total) =
+            processor.ProcessOrder(items, customer);
+
         // Display order summary
-        Console.WriteLine($"Customer: {customerName} ({customerType})");
-        Console.WriteLine($"Shipping Address: {shippingAddress}");
+        Console.WriteLine($"Customer: {customer.Name} ({customer.Type})");
+        Console.WriteLine($"Shipping Address: {customer.ShippingAddress}");
         Console.WriteLine("--- Order Details ---");
-        for (int i = 0; i < productNames.Count; i++)
+        foreach (var item in items)
         {
-            Console.WriteLine($"{productNames[i]} x{quantities[i]} = ${productPrices[i] * quantities[i]}");
+            Console.WriteLine($"{item.Product.Name} x{item.Quantity} = ${item.Total}");
         }
+
         Console.WriteLine($"Subtotal: ${subtotal}");
         Console.WriteLine($"Discount: -${discount}");
         Console.WriteLine($"Tax: ${tax}");

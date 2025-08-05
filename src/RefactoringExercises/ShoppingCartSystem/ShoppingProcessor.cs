@@ -2,62 +2,61 @@ namespace RefactoringExercises.ShoppingCartSystem;
 
 public class ShoppingProcessor
 {
-    public (double, double, double, double, double) ProcessOrder(List<string> productNames, List<double> productPrices, List<int> quantities,
-        List<string> categories, string customerName, string customerType, string shippingAddress)
+    public (decimal, decimal, decimal, decimal, decimal) ProcessOrder(List<OrderItem> items, Customer customer)
     {
         // Calculate subtotal
-        double subtotal = 0;
-        for (int i = 0; i < productNames.Count; i++)
+        decimal subtotal = 0;
+        foreach (var item in items)
         {
-            subtotal += productPrices[i] * quantities[i];
+            subtotal += item.Total;
         }
         
         // Apply discount based on customer type
-        double discount = 0;
-        if (customerType == "Premium")
+        decimal discount = 0;
+        if (customer.Type == "Premium")
         {
-            discount = subtotal * 0.10;
+            discount = subtotal * 0.10m;
         }
-        else if (customerType == "VIP")
+        else if (customer.Type == "VIP")
         {
-            discount = subtotal * 0.15;
+            discount = subtotal * 0.15m;
         }
         
         // Calculate tax (different rates for different categories)
-        double tax = 0;
-        for (int i = 0; i < categories.Count; i++)
+        decimal tax = 0;
+        foreach (var item in items)
         {
-            double itemTotal = productPrices[i] * quantities[i];
-            if (categories[i] == "Electronics")
+            decimal itemTotal = item.Total;
+            if (item.Product.Category.Name == "Electronics")
             {
-                tax += itemTotal * 0.08;
+                tax += itemTotal * 0.08m;
             }
-            else if (categories[i] == "Books")
+            else if (item.Product.Category.Name == "Books")
             {
-                tax += itemTotal * 0.05;
+                tax += itemTotal * 0.05m;
             }
             else
             {
-                tax += itemTotal * 0.07;
+                tax += itemTotal * 0.07m;
             }
         }
         
         // Calculate shipping
-        double shipping = 0;
+        decimal shipping = 0;
         if (subtotal < 100)
         {
-            shipping = 15.99;
+            shipping = 15.99m;
         }
-        else if (customerType == "VIP")
+        else if (customer.Type == "VIP")
         {
             shipping = 0; // Free shipping for VIP
         }
         else
         {
-            shipping = 9.99;
+            shipping = 9.99m;
         }
         
-        double total = subtotal - discount + tax + shipping;
+        decimal total = subtotal - discount + tax + shipping;
         return (subtotal, discount, tax, shipping, total);
     }
 }

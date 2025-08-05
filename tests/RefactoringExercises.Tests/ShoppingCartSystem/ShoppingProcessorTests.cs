@@ -8,24 +8,24 @@ public class ShoppingProcessorTests
     public void CanProcessOrderSuccessfully()
     {
         // Product data
-        List<string> productNames = ["Laptop", "Mouse", "Keyboard"];
-        List<double> productPrices = [999.99, 29.99, 79.99];
-        List<int> quantities = [1, 2, 1];
-        List<string> categories = ["Electronics", "Electronics", "Electronics"];
-        
+        List<OrderItem> items =
+        [
+            new(new Product("Laptop", 999.99m, new Category("Electronics")), 1),
+            new(new Product("Mouse", 29.99m, new Category("Electronics")), 2),
+            new(new Product("Keyboard", 79.99m, new Category("Electronics")), 1)
+        ];
+
         // Customer data
-        string customerName = "Alice Smith";
-        string customerType = "Premium"; // Regular, Premium, VIP
-        string shippingAddress = "123 Main St, City, State";
-        
+        Customer customer = new("Alice Smith", "Premium", "123 Main St, City, State");
+
         ShoppingProcessor sut = new();
-        (double subtotal, double discount, double tax, double shipping, double total) = 
-            sut.ProcessOrder(productNames, productPrices, quantities, categories, customerName, customerType, shippingAddress);
-        
-        Assert.Equal(1139.96, subtotal);
-        Assert.Equal(113.99600000000001, discount);
-        Assert.Equal(91.1968, tax);
-        Assert.Equal(9.99, shipping);
-        Assert.Equal(1127.1508, total);
+        (decimal subtotal, decimal discount, decimal tax, decimal shipping, decimal total) =
+            sut.ProcessOrder(items, customer);
+
+        Assert.Equal(1139.96m, subtotal);
+        Assert.Equal(113.9960m, discount);
+        Assert.Equal(91.1968m, tax);
+        Assert.Equal(9.99m, shipping);
+        Assert.Equal(1127.1508m, total);
     }
 }
