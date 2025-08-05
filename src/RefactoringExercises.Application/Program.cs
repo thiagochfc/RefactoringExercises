@@ -1,6 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-using RefactoringExercises.EmployeeManagement;
+using RefactoringExercises.Application;
 
-Employee employee = new("John Doe", 5000, 160, Department.It);
-Console.WriteLine(employee.Display());
+EmployeeManagement.Execute();
