@@ -144,5 +144,16 @@ public class ShoppingProcessor
         Console.WriteLine($"Shipping: ${shipping}");
         Console.WriteLine($"Total: ${total}");
     }
-}
+} 
 ```
+
+[OOP Code](./src/RefactoringExercises/ShoppingCartSystem/)
+
+### Refactoring Goals
+
+- Create Product, Customer, Order, and OrderItem classes
+- Implement discount strategies for different customer types
+- Create tax calculation service
+- Implement shipping calculator
+- Apply single responsibility principle
+- Use composition and dependency injection

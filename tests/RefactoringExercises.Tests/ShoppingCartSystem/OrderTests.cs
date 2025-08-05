@@ -1,10 +1,16 @@
 using RefactoringExercises.ShoppingCartSystem;
 
-namespace RefactoringExercises.Application;
+namespace RefactoringExercises.Tests.ShoppingCartSystem;
 
-public static class ShoppingCartSystem
+public class OrderTests
 {
-    public static void Execute()
+    public OrderTests()
+    {
+        
+    }
+    
+    [Fact]
+    public void CanCreateOrderSuccessfully()
     {
         // Customer data
         Customer customer = new("Alice Smith", CustomerType.Premium, "123 Main St, City, State");
@@ -18,9 +24,12 @@ public static class ShoppingCartSystem
         ];
         
         // Order Data
-        Order order = new(customer, items, OrderShippingRuleFactory.Create());
+        Order sut = new(customer, items, OrderShippingRuleFactory.Create());
 
-        // Display order
-        Console.WriteLine(order.Display());
+        Assert.Equal(1139.96m, sut.SubTotal);
+        Assert.Equal(114.00m, sut.Discount);
+        Assert.Equal(91.20m, sut.Tax);
+        Assert.Equal(9.99m, sut.Shipping);
+        Assert.Equal(1127.15m, sut.Total);
     }
 }

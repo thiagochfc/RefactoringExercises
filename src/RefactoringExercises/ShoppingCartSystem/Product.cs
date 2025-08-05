@@ -1,11 +1,8 @@
 namespace RefactoringExercises.ShoppingCartSystem;
 
-public class Product(string name, decimal price, Category category)
+public record Product(string Name, decimal Price, Category Category)
+
 {
-    public string Name { get; } = name;
-    public decimal Price { get; } = price;
-    public Category Category { get; } = category;
-    
     public decimal CalculateTax(decimal amount) =>
         Category.CalculateTax(amount);
 };

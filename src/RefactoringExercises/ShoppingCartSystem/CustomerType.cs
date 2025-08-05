@@ -13,9 +13,9 @@ public record CustomerType : IDiscountable
 
     public decimal CalculateDiscount(decimal amount) => Name switch
     {
-        "Premium" => amount * 0.10m,
-        "VIP" => amount * 0.15m,
-        _ => 0m
+        "Premium" => Decimal.Round(amount * 0.10m, 2),
+        "VIP" => Decimal.Round(amount * 0.15m, 2),
+        _ => 0.00m
     };
     
     public override string ToString() => 
