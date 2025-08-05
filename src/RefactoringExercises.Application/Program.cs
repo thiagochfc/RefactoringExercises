@@ -2,4 +2,4 @@
 
 using RefactoringExercises.Application;
 
-ShoppingCartSystem.Execute();
+LibraryManagementSystem.Execute();
