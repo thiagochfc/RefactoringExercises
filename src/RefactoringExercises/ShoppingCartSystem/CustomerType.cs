@@ -1,0 +1,23 @@
+namespace RefactoringExercises.ShoppingCartSystem;
+
+public record CustomerType : IDiscountable
+{
+    public static readonly CustomerType Regular = new("Regular");
+    public static readonly CustomerType Premium = new("Premium");
+    public static readonly CustomerType Vip = new("VIP");
+
+    public string Name { get; }
+
+    private CustomerType(string name) => 
+        Name = name;
+
+    public decimal CalculateDiscount(decimal amount) => Name switch
+    {
+        "Premium" => amount * 0.10m,
+        "VIP" => amount * 0.15m,
+        _ => 0m
+    };
+    
+    public override string ToString() => 
+        Name;
+}
